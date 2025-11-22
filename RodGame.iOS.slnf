@@ -1,0 +1,10 @@
+{
+  "solution": {
+    "path": "RodGame.sln",
+    "projects": [
+      "RodGame.Game\\RodGame.Game.csproj",
+      "RodGame.Resources\\RodGame.Resources.csproj",
+      "RodGame.iOS\\RodGame.iOS.csproj"
+    ]
+  }
+}
