@@ -17,11 +17,14 @@ namespace RodGame.Game.Gameplay.GameObjects
         public RodModel Model;
 
         private Vector2 currentPosition = Vector2.Zero;
+        private double currentRotation = 0d;
+        private double currentRotationSpeed = 0d;
 
         [BackgroundDependencyLoader]
         private void load(IRenderer renderer)
         {
             currentPosition = Model.StartPosition;
+            currentRotationSpeed = Model.StartRotationSpeed;
             Position = currentPosition;
 
             Texture = renderer.WhitePixel;
@@ -36,7 +39,8 @@ namespace RodGame.Game.Gameplay.GameObjects
         protected override void Update()
         {
             // Rotation
-            Rotation = (float)Time.Current * 0.1f;
+            Rotation = (float)Time.Current * (float)currentRotationSpeed;
         }
     }    
  }
+

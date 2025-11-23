@@ -1,5 +1,6 @@
 using osu.Framework.Allocation;
 using osu.Framework.Graphics;
+using osu.Framework.Graphics.Containers;
 using osu.Framework.Graphics.Shapes;
 using osu.Framework.Graphics.Sprites;
 using osu.Framework.Graphics.UserInterface;
@@ -14,10 +15,15 @@ namespace RodGame.Game
 {
     public partial class GameScreen: Screen
     {
+        private Container gameplayContainer = new()
+        {
+            RelativeSizeAxes = Axes.Both,
+        };
+
         [BackgroundDependencyLoader]
         private void load()
         {
-            InternalChildren = new Drawable[]
+            gameplayContainer.AddRange(new Drawable[]
             {
                 new Box
                 {
@@ -26,13 +32,17 @@ namespace RodGame.Game
                 },
                 new Rod
                 {
-                    Model = new RodModel(),
-                },
-                new Rod
-                {                    
                     Model = new RodModel
                     {
-                        StartPosition = new Vector2 (100, 100)
+                        StartRotationSpeed = 1,
+                    },
+                },
+                new Rod
+                {
+                    Model = new RodModel
+                    {
+                        StartPosition = new Vector2 (100, 100),
+                        StartRotationSpeed = 1,
                     },
                 },
                 new Note
@@ -42,7 +52,12 @@ namespace RodGame.Game
                         StartPosition = new Vector2 (100, 100)
                     },
                 }
-            };
+            });
+
+            InternalChild = gameplayContainer;
+
+            gameplayContainer.MoveTo(new Vector2 (300, 300), 3000, Easing.Out);
+
         }
     }
 }
