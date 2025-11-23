@@ -14,8 +14,6 @@ namespace RodGame.Game
 {
     public partial class GameScreen: Screen
     {
-        private Rod rod;
-
         [BackgroundDependencyLoader]
         private void load()
         {
@@ -26,14 +24,23 @@ namespace RodGame.Game
                     Colour = Color4.Violet,
                     RelativeSizeAxes = Axes.Both,
                 },
-                rod = new Rod
+                new Rod
                 {
                     Model = new RodModel(),
                 },
                 new Rod
+                {                    
+                    Model = new RodModel
+                    {
+                        StartPosition = new Vector2 (100, 100)
+                    },
+                },
+                new Note
                 {
-                    Position = new Vector2(100, 100),
-                    Model = new RodModel(),
+                    Model = new NoteModel
+                    {
+                        StartPosition = new Vector2 (100, 100)
+                    },
                 }
             };
         }

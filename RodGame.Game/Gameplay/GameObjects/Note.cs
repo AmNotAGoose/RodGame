@@ -21,13 +21,16 @@ namespace RodGame.Game.Gameplay.GameObjects
         [BackgroundDependencyLoader]
         private void load(IRenderer renderer)
         {
-            currentPosition = Model.StartingPosition;
-                
+            currentPosition = Model.StartPosition;
+            Position = currentPosition;
+
             Texture = renderer.WhitePixel;
-            
+            RelativeSizeAxes = Axes.None;
+            RelativePositionAxes = Axes.None;
+            Origin = Anchor.Centre;
+            Anchor = Anchor.Centre;
             Size = new Vector2(100, 100);
             Colour = Color4.Black;
-            Position = currentPosition;
         }
     }
 }

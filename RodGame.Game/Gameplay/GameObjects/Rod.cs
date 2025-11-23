@@ -16,9 +16,14 @@ namespace RodGame.Game.Gameplay.GameObjects
     {
         public RodModel Model;
 
+        private Vector2 currentPosition = Vector2.Zero;
+
         [BackgroundDependencyLoader]
         private void load(IRenderer renderer)
         {
+            currentPosition = Model.StartPosition;
+            Position = currentPosition;
+
             Texture = renderer.WhitePixel;
             RelativeSizeAxes = Axes.None;
             RelativePositionAxes = Axes.None;
