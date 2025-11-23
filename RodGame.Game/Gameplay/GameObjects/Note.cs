@@ -8,35 +8,26 @@ using osu.Framework.Input;
 using osu.Framework.Screens;
 using osuTK;
 using osuTK.Graphics;
+using RodGame.Game.Gameplay.Models;
 
-namespace RodGame.Game
+namespace RodGame.Game.Gameplay.GameObjects
 {
-    public partial class Rod : Sprite
+    public partial class Note(NoteModel _model) : Sprite
     {
-        private readonly RodModel model;
-
-        public Rod(RodModel _model)
-        {
-            model = _model;
-        }
+        private readonly NoteModel model = _model;
 
         [BackgroundDependencyLoader]
         private void load(IRenderer renderer)
         {
             Texture = renderer.WhitePixel;
             
-            Size = new Vector2(10000, 10);
+            Size = new Vector2(100, 100);
             Colour = Color4.Black;
-        }
-
-        public void Rotate()
-        {
-            Rotation = (float)Time.Current * 0.1f;
         }
 
         protected override void Update()
         {
-            Rotate();
+
         }
     }    
  }

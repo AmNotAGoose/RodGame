@@ -6,7 +6,7 @@ using osu.Framework.Graphics.Shapes;
 using osu.Framework.Graphics.Sprites;
 using osu.Framework.Graphics.Textures;
 
-namespace RodGame.Game
+namespace RodGame.Game.Gameplay.Models
 {
     public enum RodEventNames
     {

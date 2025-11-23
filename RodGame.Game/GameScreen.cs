@@ -7,6 +7,8 @@ using osu.Framework.Input;
 using osu.Framework.Screens;
 using osuTK;
 using osuTK.Graphics;
+using RodGame.Game.Gameplay.GameObjects;
+using RodGame.Game.Gameplay.Models;
 
 namespace RodGame.Game
 {
@@ -26,18 +28,12 @@ namespace RodGame.Game
                 },
                 rod = new Rod
                 {
-                    RelativeSizeAxes = Axes.None,
-                    RelativePositionAxes = Axes.None,
-                    Origin = Anchor.Centre,
-                    Anchor = Anchor.Centre,
+                    Model = new RodModel(),
                 },
                 new Rod
                 {
-                    RelativeSizeAxes = Axes.None,
-                    RelativePositionAxes = Axes.None,
-                    Origin = Anchor.Centre,
-                    Anchor = Anchor.Centre,
                     Position = new Vector2(100, 100),
+                    Model = new RodModel(),
                 }
             };
         }

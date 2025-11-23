@@ -6,17 +6,18 @@ using osu.Framework.Graphics.Shapes;
 using osu.Framework.Graphics.Sprites;
 using osu.Framework.Graphics.Textures;
 
-namespace RodGame.Game
+namespace RodGame.Game.Gameplay.Models
 {
-    public class RodModel
+    public enum NoteEventNames
     {
-        public List<RodEventModel> Events;
+        ChangeSpeed,
+        Destroy,
+    }
 
-        public float CurrentRotationSpeed;
-
-        public RodModel()
-        {
-
-        }
+    public class NoteEventModel
+    {
+        public NoteEventNames EventName;
+        public double StartTime;
+        public List<int> Data;
     }
 }
