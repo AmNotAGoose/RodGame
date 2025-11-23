@@ -9,10 +9,8 @@ using osuTK.Graphics;
 
 namespace RodGame.Game
 {
-    public partial class MenuScreen: Screen
+    public partial class GameScreen: Screen
     {
-        private Rod rod;
-
         [BackgroundDependencyLoader]
         private void load()
         {
@@ -23,13 +21,7 @@ namespace RodGame.Game
                     Colour = Color4.Violet,
                     RelativeSizeAxes = Axes.Both,
                 },
-                rod = new Rod
-                {
-                    Colour = Color4.Violet,
-                    RelativeSizeAxes = Axes.Both,
-                }
             };
-            rod.Rotate();
         }
     }
 }
