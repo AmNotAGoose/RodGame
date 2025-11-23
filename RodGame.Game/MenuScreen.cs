@@ -2,12 +2,14 @@ using osu.Framework.Allocation;
 using osu.Framework.Graphics;
 using osu.Framework.Graphics.Shapes;
 using osu.Framework.Graphics.Sprites;
+using osu.Framework.Graphics.UserInterface;
+using osu.Framework.Input;
 using osu.Framework.Screens;
 using osuTK.Graphics;
 
 namespace RodGame.Game
 {
-    public partial class MainScreen : Screen
+    public partial class MenuScreen: Screen
     {
         [BackgroundDependencyLoader]
         private void load()
@@ -21,17 +23,19 @@ namespace RodGame.Game
                 },
                 new SpriteText
                 {
-                    Y = 20,
-                    Text = "Main Screen",
-                    Anchor = Anchor.TopCentre,
-                    Origin = Anchor.TopCentre,
-                    Font = FontUsage.Default.With(size: 40)
-                },
-                new SpinningBox
-                {
+                    Width = 400,
+                    Height = 50,
                     Anchor = Anchor.Centre,
-                }
+                    Text = "Menu Screen - Press Enter to Start",
+                    Origin = Anchor.Centre,
+                },
+                new GameButton
+                {
+
+                },
             };
         }
+
+
     }
 }

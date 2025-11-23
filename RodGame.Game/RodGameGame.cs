@@ -21,7 +21,7 @@ namespace RodGame.Game
         {
             base.LoadComplete();
 
-            screenStack.Push(new MainScreen());
+            screenStack.Push(new MenuScreen());
         }
     }
 }

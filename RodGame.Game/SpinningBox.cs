@@ -40,6 +40,12 @@ namespace RodGame.Game
                         Origin = Anchor.Centre,
                         Texture = textures.Get("logo")
                     },
+                    new Sprite
+                    {
+                        Anchor = Anchor.TopCentre,
+                        Origin = Anchor.Centre,
+                        Texture = textures.Get("logo")
+                    },
                 }
             };
         }
