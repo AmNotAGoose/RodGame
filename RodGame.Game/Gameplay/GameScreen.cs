@@ -1,3 +1,5 @@
+using System;
+using System.Runtime.CompilerServices;
 using osu.Framework.Allocation;
 using osu.Framework.Graphics;
 using osu.Framework.Graphics.Containers;
@@ -11,25 +13,38 @@ using osuTK.Graphics;
 using RodGame.Game.Gameplay.GameObjects;
 using RodGame.Game.Gameplay.Models;
 
-namespace RodGame.Game
+namespace RodGame.Game.Gameplay
 {
     public partial class GameScreen: Screen
     {
         private Container gameplayContainer = new()
         {
+            RelativeSizeAxes = Axes.Both,   
+        };
+        private Container dynamicBackgroundContainer = new()
+        {
             RelativeSizeAxes = Axes.Both,
         };
+        private Container stationaryBackgroundContainer = new()
+        {
+            RelativeSizeAxes = Axes.Both,
+        };
+
+        private CameraManager cameraManager;
 
         [BackgroundDependencyLoader]
         private void load()
         {
-            gameplayContainer.AddRange(new Drawable[]
-            {
+            stationaryBackgroundContainer.Add(
                 new Box
                 {
                     Colour = Color4.Violet,
                     RelativeSizeAxes = Axes.Both,
-                },
+                }
+            );
+
+            gameplayContainer.AddRange(new Drawable[]
+            {
                 new Rod
                 {
                     Model = new RodModel
@@ -54,10 +69,23 @@ namespace RodGame.Game
                 }
             });
 
-            InternalChild = gameplayContainer;
+            dynamicBackgroundContainer.Add(new Box()
+            {
+                Colour = Color4.Violet,
+                RelativeSizeAxes = Axes.Both,
 
-            gameplayContainer.MoveTo(new Vector2 (300, 300), 3000, Easing.Out);
+            });
 
+            InternalChildren = new Drawable[]
+            {
+                stationaryBackgroundContainer,
+                dynamicBackgroundContainer,
+                gameplayContainer
+            };
+
+            cameraManager = new(stationaryBackgroundContainer, dynamicBackgroundContainer, gameplayContainer);
+
+            cameraManager.MoveCamTo(new Vector2(300, 300), 3000, Easing.None);
         }
     }
 }
