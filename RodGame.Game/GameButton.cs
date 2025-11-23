@@ -3,8 +3,10 @@ using osu.Framework.Graphics;
 using osu.Framework.Graphics.Containers;
 using osu.Framework.Graphics.Shapes;
 using osu.Framework.Graphics.Sprites;
+using osu.Framework.Graphics.Textures;
 using osu.Framework.Graphics.UserInterface;
 using osu.Framework.Input;
+using osu.Framework.Localisation;
 using osu.Framework.Screens;
 using osuTK.Graphics;
 
@@ -12,23 +14,30 @@ namespace RodGame.Game
 {
     public partial class GameButton : CompositeDrawable
     {
-        private BasicButton Button;
+        private BasicButton Button = new(); 
+        public LocalisableString Text
+        {
+            get => Button.Text;
+            set => Button.Text = value;
+        }
 
         [BackgroundDependencyLoader]
-        private void load()
+        private void load(TextureStore textures)
         {
-            Anchor = Anchor.Centre;
-            Origin = Anchor.Centre;
-            Button = new BasicButton
+            Size = new osuTK.Vector2(200, 60);
+
+            var background = new NineSliceSprite()
             {
-                Width = 200,
-                Height = 50,
-                Anchor = Anchor.Centre,
-                Origin = Anchor.Centre,
-                BackgroundColour = Color4.DarkGray,
-                Text = "Game Button",
-            }; 
-            InternalChild = Button;
+                Texture = textures.Get("ui/menubutton"),
+                TextureInset = new MarginPadding(10),
+                RelativeSizeAxes = Axes.Both
+            };
+
+            InternalChildren = new Drawable[]
+            {
+                background,
+                Button,
+            };
         }
     }
 }

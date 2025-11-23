@@ -26,12 +26,16 @@ namespace RodGame.Game
                     Width = 400,
                     Height = 50,
                     Anchor = Anchor.Centre,
-                    Text = "Menu Screen - Press Enter to Start",
                     Origin = Anchor.Centre,
+                    Text = "diddy blud",
                 },
                 new GameButton
                 {
-
+                    Width = 300,
+                    Height = 10,
+                    Anchor = Anchor.Centre,
+                    Origin = Anchor.Centre,
+                    Text = "Start Game",
                 },
             };
         }
