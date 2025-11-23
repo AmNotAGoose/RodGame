@@ -11,8 +11,6 @@ namespace RodGame.Game
 {
     public partial class MenuScreen: Screen
     {
-        private Rod rod;
-
         [BackgroundDependencyLoader]
         private void load()
         {
@@ -22,14 +20,8 @@ namespace RodGame.Game
                 {
                     Colour = Color4.Violet,
                     RelativeSizeAxes = Axes.Both,
-                },
-                rod = new Rod
-                {
-                    Colour = Color4.Violet,
-                    RelativeSizeAxes = Axes.Both,
                 }
             };
-            rod.Rotate();
         }
     }
 }

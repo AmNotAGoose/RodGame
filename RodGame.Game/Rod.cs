@@ -14,9 +14,6 @@ namespace RodGame.Game
         [BackgroundDependencyLoader]
         private void load()
         {
-            Width = 100;
-            Height = 100;
-            Colour = Color4.AliceBlue;
         }
 
         public void Rotate()

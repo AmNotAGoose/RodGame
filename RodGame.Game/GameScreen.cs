@@ -11,6 +11,8 @@ namespace RodGame.Game
 {
     public partial class GameScreen: Screen
     {
+        private Rod rod;
+
         [BackgroundDependencyLoader]
         private void load()
         {
@@ -21,7 +23,15 @@ namespace RodGame.Game
                     Colour = Color4.Violet,
                     RelativeSizeAxes = Axes.Both,
                 },
+                rod = new Rod
+                {
+                    Colour = Color4.Black,
+                    Size = new osuTK.Vector2 (100, 100) {},
+                    Origin = Anchor.Centre,
+                    Anchor = Anchor.Centre,
+                }
             };
+            rod.Rotate();
         }
     }
 }
