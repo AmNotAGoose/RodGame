@@ -14,10 +14,8 @@ namespace RodGame.Game.Gameplay.Models
         Destroy,
     }
 
-    public class RodEventModel
+    public class RodEventModel : GameObjectEventModel
     {
         public RodEventNames EventName;
-        public double StartTime;
-        public List<int> Data;
     }
 }

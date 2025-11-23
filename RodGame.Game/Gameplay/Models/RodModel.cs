@@ -8,10 +8,10 @@ using osu.Framework.Graphics.Textures;
 
 namespace RodGame.Game.Gameplay.Models
 {
-    public class RodModel
+    public class RodModel : GameObjectModel
     {
         public List<RodEventModel> Events;
 
-        public float CurrentRotationSpeed;
+        public float StartRotationSpeed;
     }
 }

@@ -5,16 +5,13 @@ using osu.Framework.Graphics.Containers;
 using osu.Framework.Graphics.Shapes;
 using osu.Framework.Graphics.Sprites;
 using osu.Framework.Graphics.Textures;
+using osuTK;
 
 namespace RodGame.Game.Gameplay.Models
 {
-    public enum NoteEventNames
+    public class GameObjectModel
     {
-
-    }
-
-    public class NoteEventModel : GameObjectEventModel
-    {
-        public NoteEventNames EventName;
+        public Vector2 StartPosition;
+        public double StartTime;
     }
 }

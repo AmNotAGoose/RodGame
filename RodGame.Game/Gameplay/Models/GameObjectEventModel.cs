@@ -8,13 +8,9 @@ using osu.Framework.Graphics.Textures;
 
 namespace RodGame.Game.Gameplay.Models
 {
-    public enum NoteEventNames
+    public class GameObjectEventModel
     {
-
-    }
-
-    public class NoteEventModel : GameObjectEventModel
-    {
-        public NoteEventNames EventName;
+        public double StartTime;
+        public List<int> Data;
     }
 }

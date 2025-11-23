@@ -12,22 +12,22 @@ using RodGame.Game.Gameplay.Models;
 
 namespace RodGame.Game.Gameplay.GameObjects
 {
-    public partial class Note(NoteModel _model) : Sprite
+    public partial class Note : Sprite
     {
-        private readonly NoteModel model = _model;
+        public NoteModel Model;
+
+        private Vector2 currentPosition = Vector2.Zero;
 
         [BackgroundDependencyLoader]
         private void load(IRenderer renderer)
         {
+            currentPosition = Model.StartingPosition;
+                
             Texture = renderer.WhitePixel;
             
             Size = new Vector2(100, 100);
             Colour = Color4.Black;
+            Position = currentPosition;
         }
-
-        protected override void Update()
-        {
-
-        }
-    }    
- }
+    }
+}
