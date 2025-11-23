@@ -9,7 +9,7 @@ using osuTK.Graphics;
 
 namespace RodGame.Game
 {
-    public partial class Rod: Box
+    public partial class Rod : Box
     {
         [BackgroundDependencyLoader]
         private void load()
@@ -18,7 +18,14 @@ namespace RodGame.Game
 
         public void Rotate()
         {
-            Rotation += 10;
+            Rotation += 0.5f;
+        }
+        protected override void Update()
+        {
+            base.Update();
+            Rotate();
         }
     }
-}
+
+    
+ }

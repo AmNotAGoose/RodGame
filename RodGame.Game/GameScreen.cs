@@ -27,11 +27,17 @@ namespace RodGame.Game
                 {
                     Colour = Color4.Black,
                     Size = new osuTK.Vector2 (100, 100) {},
+                    RelativeSizeAxes = Axes.None,
+                    RelativePositionAxes = Axes.None,
                     Origin = Anchor.Centre,
                     Anchor = Anchor.Centre,
+                    Position = new osuTK.Vector2(100, 100),
+
                 }
             };
             rod.Rotate();
+
+
         }
     }
 }
