@@ -5,6 +5,7 @@ using osu.Framework.Graphics.Sprites;
 using osu.Framework.Graphics.UserInterface;
 using osu.Framework.Input;
 using osu.Framework.Screens;
+using osuTK;
 using osuTK.Graphics;
 
 namespace RodGame.Game
@@ -25,19 +26,20 @@ namespace RodGame.Game
                 },
                 rod = new Rod
                 {
-                    Colour = Color4.Black,
-                    Size = new osuTK.Vector2 (100, 100) {},
                     RelativeSizeAxes = Axes.None,
                     RelativePositionAxes = Axes.None,
                     Origin = Anchor.Centre,
                     Anchor = Anchor.Centre,
-                    Position = new osuTK.Vector2(100, 100),
-
+                },
+                new Rod
+                {
+                    RelativeSizeAxes = Axes.None,
+                    RelativePositionAxes = Axes.None,
+                    Origin = Anchor.Centre,
+                    Anchor = Anchor.Centre,
+                    Position = new Vector2(100, 100),
                 }
             };
-            rod.Rotate();
-
-
         }
     }
 }
