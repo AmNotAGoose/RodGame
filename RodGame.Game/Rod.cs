@@ -13,8 +13,12 @@ namespace RodGame.Game
 {
     public partial class Rod : Sprite
     {
+        private readonly RodModel model;
 
-
+        public Rod(RodModel _model)
+        {
+            model = _model;
+        }
 
         [BackgroundDependencyLoader]
         private void load(IRenderer renderer)
