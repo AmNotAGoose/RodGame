@@ -1,3 +1,4 @@
+using System;
 using osu.Framework.Allocation;
 using osu.Framework.Graphics;
 using osu.Framework.Graphics.Rendering;
@@ -6,6 +7,7 @@ using osu.Framework.Graphics.Sprites;
 using osu.Framework.Graphics.UserInterface;
 using osu.Framework.Input;
 using osu.Framework.Screens;
+using osu.Framework.Timing;
 using osuTK;
 using osuTK.Graphics;
 using RodGame.Game.Gameplay.Models;
@@ -15,8 +17,9 @@ namespace RodGame.Game.Gameplay.GameObjects
     public partial class Rod : Sprite
     {
         public RodModel Model;
+
         [Resolved]
-        public GameClock
+        private GameClock gameClock { get; set; }
 
         private Vector2 currentPosition = Vector2.Zero;
         private double currentRotation = 0d;
@@ -41,8 +44,7 @@ namespace RodGame.Game.Gameplay.GameObjects
         protected override void Update()
         {
             // Rotation
-            Rotation = (float)Time.Current * (float)currentRotationSpeed;
+            Rotation = (float)gameClock.CurrentTime * (float)currentRotationSpeed;
         }
-    }    
+    }
  }
-

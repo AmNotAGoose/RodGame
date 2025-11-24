@@ -12,6 +12,10 @@ namespace RodGame.Game.Gameplay
 {
     public class GameClock : ManualFramedClock
     {
-
+        public void Advance(double deltaMs)
+        {
+            CurrentTime += deltaMs;
+            ProcessFrame();
+        }
     }
 }

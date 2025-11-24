@@ -8,6 +8,7 @@ using osu.Framework.Graphics.Sprites;
 using osu.Framework.Graphics.UserInterface;
 using osu.Framework.Input;
 using osu.Framework.Screens;
+using osu.Framework.Timing;
 using osuTK;
 using osuTK.Graphics;
 using RodGame.Game.Gameplay.GameObjects;
@@ -32,7 +33,8 @@ namespace RodGame.Game.Gameplay
 
         private CameraManager cameraManager;
 
-
+        [Cached]
+        private GameClock gameClock { get; } = new();
 
         [BackgroundDependencyLoader]
         private void load()
@@ -92,6 +94,15 @@ namespace RodGame.Game.Gameplay
             cameraManager = new(stationaryBackgroundContainer, dynamicBackgroundContainer, gameplayContainer);
 
             cameraManager.MoveCamTo(new Vector2(300, 300), 3000, Easing.None);
+
+            gameClock.IsRunning = true;
+        }
+
+        protected override void Update()
+        {
+            base.Update();
+
+            if (gameClock.IsRunning) gameClock.Advance(Time.Elapsed);
         }
     }
 }
