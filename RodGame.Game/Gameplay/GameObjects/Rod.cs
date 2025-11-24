@@ -15,6 +15,8 @@ namespace RodGame.Game.Gameplay.GameObjects
     public partial class Rod : Sprite
     {
         public RodModel Model;
+        [Resolved]
+        public GameClock
 
         private Vector2 currentPosition = Vector2.Zero;
         private double currentRotation = 0d;

@@ -32,6 +32,8 @@ namespace RodGame.Game.Gameplay
 
         private CameraManager cameraManager;
 
+
+
         [BackgroundDependencyLoader]
         private void load()
         {
@@ -71,9 +73,13 @@ namespace RodGame.Game.Gameplay
 
             dynamicBackgroundContainer.Add(new Box()
             {
-                Colour = Color4.Violet,
-                RelativeSizeAxes = Axes.Both,
-
+                Colour = Color4.Aquamarine,
+                Size = new Vector2(10, 10),
+                RelativeSizeAxes = Axes.None,
+                RelativePositionAxes = Axes.None,
+                Anchor = Anchor.Centre,
+                Origin = Anchor.Centre,
+                Position = new Vector2 (-10, 10),
             });
 
             InternalChildren = new Drawable[]

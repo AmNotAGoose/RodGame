@@ -3,13 +3,15 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using osu.Framework.Allocation;
 using osu.Framework.Graphics;
 using osu.Framework.Graphics.Containers;
+using osu.Framework.Timing;
 using osuTK;
 
 namespace RodGame.Game.Gameplay
 {
-    public class CameraManager(
+    public class GameplayManager(
         Container _stationaryBackgroundContainer,
         Container _dynamicBackgroundContainer,
         Container _gameplayContainer)
@@ -18,12 +20,18 @@ namespace RodGame.Game.Gameplay
         private Container dynamicBackgroundContainer = _dynamicBackgroundContainer;
         private Container gameplayContainer = _gameplayContainer;
 
-        public void MoveCamTo(Vector2 position, int timeMs, Easing easing)
+        public ManualClock GameClock;
+
+        public void StartGame()
         {
-            dynamicBackgroundContainer.MoveTo(position, timeMs, easing);
-            gameplayContainer.MoveTo(position, timeMs, easing);
+            GameClock.IsRunning = false;
+            GameClock.CurrentTime = 0;
+            GameClock.IsRunning = true;
         }
 
-
+        public void TogglePauseGame()
+        {
+            GameClock.IsRunning = !GameClock.IsRunning;
+        }
     }
 }
