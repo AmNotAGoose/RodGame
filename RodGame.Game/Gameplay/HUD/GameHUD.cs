@@ -29,7 +29,6 @@ namespace RodGame.Game.Gameplay.HUD
         [BackgroundDependencyLoader]
         private void load()
         {
-
             RelativeSizeAxes = Axes.Both;
             Anchor = Anchor.Centre;
             Origin = Anchor.Centre;
@@ -42,22 +41,18 @@ namespace RodGame.Game.Gameplay.HUD
                     RelativeSizeAxes = Axes.Both,
                     Anchor = Anchor.Centre,
                     Origin = Anchor.Centre,
-                    Current = new BindableDouble
-                    {
-                        MinValue = 0f,
-                        MaxValue = 100f,
-                        Value = 50f
-                    }
+                    Current = gameClock.BindableTime
                 }
             };
 
-            timeSliderBar.Current.BindValueChanged(value => gameClock.SetTime(value.NewValue));
+            //timeSliderBar.Current.BindValueChanged(value => gameClock.SetTime(value.NewValue));
 
-            //timeSliderBar.Current.BindValueChanged(value =>
-            //{
-            //    Console.WriteLine(value.NewValue);
-            //});
+            timeSliderBar.Current.BindValueChanged(value =>
+            {
+                Console.WriteLine(value.NewValue);
+                timeSliderBar.Current.Value = value.NewValue;
+            });
         }
-
     }
 }
+

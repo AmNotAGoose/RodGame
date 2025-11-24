@@ -31,7 +31,7 @@ namespace RodGame.Game.Gameplay
         {
             RelativeSizeAxes = Axes.Both,
         };
-        private Container HUDBackgroundContainer = new()
+        private Container hudBackgroundContainer = new()
         {
             RelativeSizeAxes = Axes.Both,
         };
@@ -90,21 +90,20 @@ namespace RodGame.Game.Gameplay
                 Position = new Vector2 (-10, 10),
             });
 
-            HUDBackgroundContainer.Add(gameHUD);
+            hudBackgroundContainer.Add(gameHUD);
 
             InternalChildren = new Drawable[]
             {
                 stationaryBackgroundContainer,
                 dynamicBackgroundContainer,
                 gameplayContainer,
-                HUDBackgroundContainer
+                hudBackgroundContainer
             };
 
             cameraManager = new(stationaryBackgroundContainer, dynamicBackgroundContainer, gameplayContainer);
 
             cameraManager.MoveCamTo(new Vector2(300, 300), 3000, Easing.None);
-
-            gameClock.IsRunning = true;
+            gameClock.InitializeClock();
         }
 
         protected override void Update()
