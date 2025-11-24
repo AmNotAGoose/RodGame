@@ -12,6 +12,7 @@ using osu.Framework.Timing;
 using osuTK;
 using osuTK.Graphics;
 using RodGame.Game.Gameplay.GameObjects;
+using RodGame.Game.Gameplay.HUD;
 using RodGame.Game.Gameplay.Models;
 
 namespace RodGame.Game.Gameplay
@@ -30,8 +31,13 @@ namespace RodGame.Game.Gameplay
         {
             RelativeSizeAxes = Axes.Both,
         };
+        private Container HUDBackgroundContainer = new()
+        {
+            RelativeSizeAxes = Axes.Both,
+        };
 
         private CameraManager cameraManager;
+        private GameHUD gameHUD = new();
 
         [Cached]
         private GameClock gameClock { get; } = new();
@@ -84,11 +90,14 @@ namespace RodGame.Game.Gameplay
                 Position = new Vector2 (-10, 10),
             });
 
+            HUDBackgroundContainer.Add(gameHUD);
+
             InternalChildren = new Drawable[]
             {
                 stationaryBackgroundContainer,
                 dynamicBackgroundContainer,
-                gameplayContainer
+                gameplayContainer,
+                HUDBackgroundContainer
             };
 
             cameraManager = new(stationaryBackgroundContainer, dynamicBackgroundContainer, gameplayContainer);

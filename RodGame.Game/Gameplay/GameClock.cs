@@ -17,5 +17,10 @@ namespace RodGame.Game.Gameplay
             CurrentTime += deltaMs;
             ProcessFrame();
         }
+
+        public void SetTime(double timeMs)
+        {
+            CurrentTime = timeMs;
+        }
     }
 }
