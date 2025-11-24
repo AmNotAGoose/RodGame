@@ -33,12 +33,12 @@ namespace RodGame.Game.Gameplay.HUD
             RelativeSizeAxes = Axes.Both;
             Anchor = Anchor.Centre;
             Origin = Anchor.Centre;
+            Width = 0.9f;
+            Height = 0.1f;
             InternalChildren = new Drawable[]
             {
                 timeSliderBar = new BasicSliderBar<double>()
                 {
-                    Width = 100,
-                    Height = 50,
                     RelativeSizeAxes = Axes.Both,
                     Anchor = Anchor.Centre,
                     Origin = Anchor.Centre,
@@ -51,12 +51,12 @@ namespace RodGame.Game.Gameplay.HUD
                 }
             };
 
-            //timeSliderBar.Current.BindValueChanged(value => gameClock.SetTime(value.NewValue));
+            timeSliderBar.Current.BindValueChanged(value => gameClock.SetTime(value.NewValue));
 
-            timeSliderBar.Current.BindValueChanged(value =>
-            {
-                Console.WriteLine(value.NewValue);
-            });
+            //timeSliderBar.Current.BindValueChanged(value =>
+            //{
+            //    Console.WriteLine(value.NewValue);
+            //});
         }
 
     }
