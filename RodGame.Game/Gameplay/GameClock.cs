@@ -38,14 +38,20 @@ namespace RodGame.Game.Gameplay
             Song = trackStore.Get(chartModel.SongId);
             Song.Looping = false;
             Console.WriteLine(Song.Length.ToString());
+            
+            //UIUpdateTime.BindValueChanged(value =>
+            //{
+            //    SetTime(Song.Length * value.NewValue);
+            //});
+
             Song.Start();
         }
 
         protected override void Update()
         {
             base.Update();
-            if (IsSeeking) { IsSeeking = false; return; }
-            UIUpdateTime.Value = Song.CurrentTime / Song.Length;
+            //if (IsSeeking) { IsSeeking = false; return; }
+            //UIUpdateTime.Value = Song.CurrentTime / Song.Length;
         }
 
         public void SetTime(double timeMs)

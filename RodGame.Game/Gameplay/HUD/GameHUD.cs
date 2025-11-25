@@ -37,7 +37,7 @@ namespace RodGame.Game.Gameplay.HUD
             {
                 timeSliderBar = new ClickableSliderBar<double>()
                 {
-                    OnClicked = setGameClockTime,
+                    OnSliderDrag = setGameClockTime,
                     RelativeSizeAxes = Axes.Both,
                     RelativePositionAxes = Axes.Both,
                     Width = 0.95f,

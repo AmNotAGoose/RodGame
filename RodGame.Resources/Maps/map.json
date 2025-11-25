@@ -8,31 +8,31 @@
             "Id": 1,
             "StartPosition": [ 0, 0 ],
             "StartTime": 0.0,
-            "StartRotationSpeed": 1.0,
+            "StartRotationSpeed": 0.1,
             "Events": [],
             "NoteModels": [
                 {
                     "Id": 1,
-                    "StartPosition": [ 0.5, 1.0 ],
+                    "StartPosition": [ 100, 0 ],
                     "StartTime": 0.25
                 },
                 {
                     "Id": 2,
-                    "StartPosition": [ 1.0, 1.5 ],
+                    "StartPosition": [ 0, -100 ],
                     "StartTime": 0.5
                 }
             ]
         },
         {
             "Id": 2,
-            "StartPosition": [ 2, 0 ],
+            "StartPosition": [ 50, 0 ],
             "StartTime": 1.0,
-            "StartRotationSpeed": 0.5,
+            "StartRotationSpeed": 0.05,
             "Events": [],
             "NoteModels": [
                 {
                     "Id": 3,
-                    "StartPosition": [ 2.5, 1.0 ],
+                    "StartPosition": [ 100, 200 ],
                     "StartTime": 1.25
                 }
             ]
