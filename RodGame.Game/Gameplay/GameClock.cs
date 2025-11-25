@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using JetBrains.Annotations;
 using osu.Framework.Bindables;
 using osu.Framework.Graphics;
 using osu.Framework.Graphics.Containers;
@@ -13,7 +14,7 @@ namespace RodGame.Game.Gameplay
 {
     public class GameClock : ManualFramedClock
     {
-        public double MaxTime = 3000;
+        public double MaxTime = 10000;
 
         public BindableDouble BindableTime { get; set; } = new BindableDouble
         {
@@ -33,6 +34,8 @@ namespace RodGame.Game.Gameplay
 
         public void Advance(double deltaMs)
         {
+            if (CurrentTime > MaxTime) IsRunning = false;
+
             CurrentTime += deltaMs;
             BindableTime.Value = CurrentTime / MaxTime;
             ProcessFrame();  
@@ -44,5 +47,4 @@ namespace RodGame.Game.Gameplay
         }
     }
 }
-
 
