@@ -1,5 +1,8 @@
 # RodGame Level Editor
 
+### demo video
+https://youtu.be/4JmB20C4xns
+
 ### what is it
 - a (unfinished) level editor/rhythm game framework for a (so far) non existant game
 - the game has to do with spinning rods and hitting notes when they fall on the rod, timed to music.
