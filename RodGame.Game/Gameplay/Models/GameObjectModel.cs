@@ -11,6 +11,7 @@ namespace RodGame.Game.Gameplay.Models
 {
     public class GameObjectModel
     {
+        public int Id;
         public Vector2 StartPosition;
         public double StartTime;
     }

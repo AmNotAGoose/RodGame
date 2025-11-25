@@ -4,46 +4,60 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using JetBrains.Annotations;
+using osu.Framework.Allocation;
+using osu.Framework.Audio.Sample;
+using osu.Framework.Audio.Track;
 using osu.Framework.Bindables;
 using osu.Framework.Graphics;
+using osu.Framework.Graphics.Audio;
 using osu.Framework.Graphics.Containers;
 using osu.Framework.Timing;
 using osuTK;
 
 namespace RodGame.Game.Gameplay
 {
-    public class GameClock : ManualFramedClock
+    public partial class GameClock(string trackName) : Drawable
     {
-        public double MaxTime = 10000;
+        public string TrackName { get; } = trackName;
 
-        public BindableDouble BindableTime { get; set; } = new BindableDouble
+        public Track Song;
+        public bool IsSeeking = false;
+
+        public BindableDouble UIUpdateTime { get; set; } = new BindableDouble
         {
             MinValue = 0,
             MaxValue = 1,
             Value = 0
         };
 
-        public void InitializeClock()
+        [BackgroundDependencyLoader]
+        private void load(ITrackStore trackStore)
         {
-            BindableTime.BindValueChanged(value =>
-            {
-                SetTime(MaxTime * value.NewValue);
-            });
-            IsRunning = true;
+            Song = trackStore.Get(TrackName);
+            Song.Looping = false;
+            Console.WriteLine(Song.Length.ToString());
+            
+            //UIUpdateTime.BindValueChanged(value =>
+            //{
+            //    SetTime(Song.Length * value.NewValue);
+            //});
+
+            Song.Start();
         }
 
-        public void Advance(double deltaMs)
+        protected override void Update()
         {
-            if (CurrentTime > MaxTime) IsRunning = false;
-
-            CurrentTime += deltaMs;
-            BindableTime.Value = CurrentTime / MaxTime;
-            ProcessFrame();  
+            base.Update();
+            if (IsSeeking) { IsSeeking = false; return; }
+            UIUpdateTime.Value = Song.CurrentTime / Song.Length;
         }
 
         public void SetTime(double timeMs)
         {
-            CurrentTime = timeMs;
+            //GameplayClock.CurrentTime = timeMs;
+            IsSeeking = true;
+            Song.Seek(timeMs);
+            UIUpdateTime.Value = timeMs / Song.Length;
         }
     }
 }

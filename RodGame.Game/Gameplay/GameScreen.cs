@@ -7,6 +7,7 @@ using osu.Framework.Graphics.Shapes;
 using osu.Framework.Graphics.Sprites;
 using osu.Framework.Graphics.UserInterface;
 using osu.Framework.Input;
+using osu.Framework.IO.Stores;
 using osu.Framework.Screens;
 using osu.Framework.Timing;
 using osuTK;
@@ -39,11 +40,13 @@ namespace RodGame.Game.Gameplay
         private CameraManager cameraManager;
         private GameHUD gameHUD = new();
 
+        private ChartModel chartModel;
+
         [Cached]
-        private GameClock gameClock { get; } = new();
+        private GameClock gameClock { get; };
 
         [BackgroundDependencyLoader]
-        private void load()
+        private void load(IResourceStore resources)
         {
             stationaryBackgroundContainer.Add(
                 new Box
@@ -91,6 +94,7 @@ namespace RodGame.Game.Gameplay
             });
 
             hudBackgroundContainer.Add(gameHUD);
+            hudBackgroundContainer.Add(gameClock);
 
             InternalChildren = new Drawable[]
             {
@@ -102,15 +106,10 @@ namespace RodGame.Game.Gameplay
 
             cameraManager = new(stationaryBackgroundContainer, dynamicBackgroundContainer, gameplayContainer);
 
-            cameraManager.MoveCamTo(new Vector2(300, 300), 3000, Easing.None);
-            gameClock.InitializeClock();
-        }
+            //cameraManager.MoveCamTo(new Vector2(300, 300), 3000, Easing.None);
 
-        protected override void Update()
-        {
-            base.Update();
+            chartModel = new ChartModel(resources.Get(chartId));
 
-            if (gameClock.IsRunning) gameClock.Advance(Time.Elapsed);
         }
     }
 }

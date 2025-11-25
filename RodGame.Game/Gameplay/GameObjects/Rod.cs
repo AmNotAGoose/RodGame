@@ -44,7 +44,7 @@ namespace RodGame.Game.Gameplay.GameObjects
         protected override void Update()
         {
             // Rotation
-            Rotation = (float)gameClock.CurrentTime * (float)currentRotationSpeed;
+            Rotation = (float)gameClock.Song.CurrentTime * (float)currentRotationSpeed;
         }
     }
  }

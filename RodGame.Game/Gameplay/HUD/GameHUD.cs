@@ -21,7 +21,7 @@ namespace RodGame.Game.Gameplay.HUD
     public partial class GameHUD: CompositeDrawable
     {
         [Resolved]
-        private GameClock gameClock { get; set; } = new();
+        private GameClock gameClock { get; set; }
 
         private BasicSliderBar<double> timeSliderBar;
         
@@ -35,8 +35,9 @@ namespace RodGame.Game.Gameplay.HUD
 
             InternalChildren = new Drawable[]
             {
-                timeSliderBar = new BasicSliderBar<double>()
+                timeSliderBar = new ClickableSliderBar<double>()
                 {
+                    OnClicked = setGameClockTime,
                     RelativeSizeAxes = Axes.Both,
                     RelativePositionAxes = Axes.Both,
                     Width = 0.95f,
@@ -44,18 +45,21 @@ namespace RodGame.Game.Gameplay.HUD
                     Anchor = Anchor.BottomCentre,
                     Origin = Anchor.BottomCentre,
                     Y = -0.05f,
-                    Current = gameClock.BindableTime
-
+                    Current = gameClock.UIUpdateTime
                 }
             };
 
             //timeSliderBar.Current.BindValueChanged(value => gameClock.SetTime(value.NewValue));
 
-            timeSliderBar.Current.BindValueChanged(value =>
-            {
-                timeSliderBar.Current.Value = value.NewValue;
-            });
+            //timeSliderBar.Current.BindValueChanged(value =>
+            //{
+            //    timeSliderBar.Current.Value = value.NewValue;
+            //});           
+        }
 
+        private void setGameClockTime()
+        {
+            gameClock.SetTime(timeSliderBar.Current.Value * gameClock.Song.Length);
         }
     }
 }

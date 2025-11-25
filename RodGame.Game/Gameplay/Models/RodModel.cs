@@ -11,6 +11,7 @@ namespace RodGame.Game.Gameplay.Models
     public class RodModel : GameObjectModel
     {
         public List<RodEventModel> Events;
+        public List<NoteModel> NoteModels = new();
 
         public float StartRotationSpeed;
     }
