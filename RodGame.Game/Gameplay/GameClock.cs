@@ -13,12 +13,14 @@ using osu.Framework.Graphics.Audio;
 using osu.Framework.Graphics.Containers;
 using osu.Framework.Timing;
 using osuTK;
+using RodGame.Game.Gameplay.Models;
 
 namespace RodGame.Game.Gameplay
 {
-    public partial class GameClock(string trackName) : Drawable
+    public partial class GameClock() : Drawable
     {
-        public string TrackName { get; } = trackName;
+        private ChartModel chartModel;
+        //public string TrackName { get; } = trackName;
 
         public Track Song;
         public bool IsSeeking = false;
@@ -30,18 +32,12 @@ namespace RodGame.Game.Gameplay
             Value = 0
         };
 
-        [BackgroundDependencyLoader]
-        private void load(ITrackStore trackStore)
+        public void Load(ITrackStore trackStore, ChartModel _chartModel)
         {
-            Song = trackStore.Get(TrackName);
+            chartModel = _chartModel;
+            Song = trackStore.Get(chartModel.SongId);
             Song.Looping = false;
             Console.WriteLine(Song.Length.ToString());
-            
-            //UIUpdateTime.BindValueChanged(value =>
-            //{
-            //    SetTime(Song.Length * value.NewValue);
-            //});
-
             Song.Start();
         }
 

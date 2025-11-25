@@ -10,16 +10,6 @@ namespace RodGame.Game.Gameplay
 {
     public class Chart
     {
-        public ChartModel Model;
-
-        private IResourceStore<byte[]> resources;
-
-        public Chart(IResourceStore _resources, string chartId)
-        {
-            resources = _resources;
-
-            Model = new ChartModel(resources.Get(chartId));
-            
-        }
+        
     }
 }

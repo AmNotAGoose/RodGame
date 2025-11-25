@@ -1,6 +1,8 @@
 using System;
+using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using osu.Framework.Allocation;
+using osu.Framework.Audio.Track;
 using osu.Framework.Graphics;
 using osu.Framework.Graphics.Containers;
 using osu.Framework.Graphics.Shapes;
@@ -43,11 +45,18 @@ namespace RodGame.Game.Gameplay
         private ChartModel chartModel;
 
         [Cached]
-        private GameClock gameClock { get; };
+        private GameClock gameClock { get; set; } = new();
 
         [BackgroundDependencyLoader]
-        private void load(IResourceStore resources)
+        private void load(ITrackStore trackStore)
         {
+            var mapStore = new NamespacedResourceStore<byte[]>(Game.Resources, "Maps");
+            mapStore.AddExtension("json");
+            byte[] jsonBytes = mapStore.Get("map");
+
+            chartModel = new ChartModel(jsonBytes);
+            gameClock.Load(trackStore, chartModel);
+
             stationaryBackgroundContainer.Add(
                 new Box
                 {
@@ -56,31 +65,28 @@ namespace RodGame.Game.Gameplay
                 }
             );
 
-            gameplayContainer.AddRange(new Drawable[]
+
+            foreach (var rodModel in chartModel.RodModels)
             {
-                new Rod
+                var rodDrawable = new Rod
                 {
-                    Model = new RodModel
-                    {
-                        StartRotationSpeed = 1,
-                    },
-                },
-                new Rod
+                    Model = rodModel
+                };
+
+                rodDrawable.Notes = new List<Note>();
+                foreach (var noteModel in rodModel.NoteModels)
                 {
-                    Model = new RodModel
+                    var noteDrawable = new Note
                     {
-                        StartPosition = new Vector2 (100, 100),
-                        StartRotationSpeed = 1,
-                    },
-                },
-                new Note
-                {
-                    Model = new NoteModel
-                    {
-                        StartPosition = new Vector2 (100, 100)
-                    },
+                        Model = noteModel
+                    };
+                    rodDrawable.Notes.Add(noteDrawable);
+
+                    gameplayContainer.Add(noteDrawable);
                 }
-            });
+
+                gameplayContainer.Add(rodDrawable);
+            }
 
             dynamicBackgroundContainer.Add(new Box()
             {
@@ -106,10 +112,7 @@ namespace RodGame.Game.Gameplay
 
             cameraManager = new(stationaryBackgroundContainer, dynamicBackgroundContainer, gameplayContainer);
 
-            //cameraManager.MoveCamTo(new Vector2(300, 300), 3000, Easing.None);
-
-            chartModel = new ChartModel(resources.Get(chartId));
-
+            cameraManager.MoveCamTo(new Vector2(300, 300), 3000, Easing.None);
         }
     }
 }

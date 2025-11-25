@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using osu.Framework.Allocation;
 using osu.Framework.Graphics;
 using osu.Framework.Graphics.Rendering;
@@ -24,6 +25,8 @@ namespace RodGame.Game.Gameplay.GameObjects
         private Vector2 currentPosition = Vector2.Zero;
         private double currentRotation = 0d;
         private double currentRotationSpeed = 0d;
+
+        public List<Note> Notes;
 
         [BackgroundDependencyLoader]
         private void load(IRenderer renderer)
