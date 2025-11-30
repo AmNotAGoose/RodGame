@@ -21,6 +21,8 @@ namespace RodGame.Game.Gameplay
 {
     public partial class GameScreen: Screen
     {
+        protected string MapJsonPath;
+
         protected ChartManager GameChartManager;
         protected Camera GameCamera;
 
@@ -35,12 +37,19 @@ namespace RodGame.Game.Gameplay
         [Cached] protected ChartSong GameSong { get; set; } = new();
         [Cached] protected ChartModel GameChart { get; set; }
 
-        public void Load(MapStore mapStore, string mapJsonPath)
+        public GameScreen(string mapJsonPath)
         {
-            string mapDirectory = string.Join("", mapJsonPath.Split('/')[..^1]);
+            this.MapJsonPath = mapJsonPath;
+        }
+
+        [BackgroundDependencyLoader]
+        protected virtual void Load(AudioManager audio)
+        {
+            string mapDirectory = string.Join("", MapJsonPath.Split('/')[..^1]);
             MapResourceStore = new(Game.Resources, "Maps/" + mapDirectory);
             MapResourceStore.AddExtension("json");
             MapResourceStore.AddExtension("mp3");
+            MapResourceTrackStore = audio.GetTrackStore(MapResourceStore);
 
             string songName = MapResourceStore.GetAvailableResources().Where(name => name.EndsWith(".mp3")).First();
             Track track = MapResourceTrackStore.Get(songName);
@@ -97,13 +106,7 @@ namespace RodGame.Game.Gameplay
 
             GameCamera = new(StationaryBackgroundContainer, DynamicBackgroundContainer, GameplayContainer);
         }
-
-        [BackgroundDependencyLoader]
-        private void load(AudioManager audio)
-        {
-
-        }
-
+        
         protected override void Update()
         {
             base.Update();
