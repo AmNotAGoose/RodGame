@@ -36,7 +36,6 @@ namespace RodGame.Game.Gameplay
         [BackgroundDependencyLoader]
         private void load(ITrackStore trackStore)
         {
-
             var mapStore = new NamespacedResourceStore<byte[]>(Game.Resources, "Maps");
             mapStore.AddExtension("json");
             byte[] jsonBytes = mapStore.Get("map");
@@ -44,12 +43,14 @@ namespace RodGame.Game.Gameplay
             foreach (var item in mapStore.GetAvailableResources())
             {
                 Console.WriteLine(item);
+                new ChartManager(Game.Resources, chartModel, item);
             }
 
             chartModel = new ChartModel(jsonBytes);
 
             Track song = trackStore.Get(chartModel.SongId);
             gameClock.Load(song);
+
 
             stationaryBackgroundContainer.Add(
                 new Box

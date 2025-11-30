@@ -33,9 +33,9 @@ namespace RodGame.Game.Gameplay
             // in the future theres gonna be some check here to see if its actually a valid map but idgaf rn
         }
 
-        public ChartModel GetMap(string mapID)
+        public ChartModel GetMap(string mapJsonPath)
         {
-            return new ChartModel(mapsResourceStore.Get(mapID));
+            return new ChartModel(mapsResourceStore.Get(mapJsonPath));
         }
     }
 }

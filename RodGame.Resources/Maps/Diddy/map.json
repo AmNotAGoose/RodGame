@@ -1,0 +1,41 @@
+{
+    "Name": "Chart 1",
+    "SongId": "hawk",
+    "SongName": "My Song",
+    "AuthorName": "Author",
+    "RodModels": [
+        {
+            "Id": 1,
+            "StartPosition": [ 0, 0 ],
+            "StartTime": 0.0,
+            "StartRotationSpeed": 0.1,
+            "Events": [],
+            "NoteModels": [
+                {
+                    "Id": 1,
+                    "StartPosition": [ 100, 0 ],
+                    "StartTime": 0.25
+                },
+                {
+                    "Id": 2,
+                    "StartPosition": [ 0, -100 ],
+                    "StartTime": 0.5
+                }
+            ]
+        },
+        {
+            "Id": 2,
+            "StartPosition": [ 50, 0 ],
+            "StartTime": 1.0,
+            "StartRotationSpeed": 0.05,
+            "Events": [],
+            "NoteModels": [
+                {
+                    "Id": 3,
+                    "StartPosition": [ 100, 200 ],
+                    "StartTime": 1.25
+                }
+            ]
+        }
+    ]
+}
