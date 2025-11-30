@@ -21,7 +21,7 @@ namespace RodGame.Game.Gameplay.HUD
     public partial class EditorHUD: CompositeDrawable
     {
         [Resolved]
-        private GameClock gameClock { get; set; }
+        private ChartSong gameClock { get; set; }
 
         private BasicSliderBar<double> timeSliderBar;
         

@@ -1,7 +1,9 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Runtime.CompilerServices;
 using osu.Framework.Allocation;
+using osu.Framework.Audio;
 using osu.Framework.Audio.Track;
 using osu.Framework.Graphics;
 using osu.Framework.Graphics.Containers;
@@ -19,40 +21,32 @@ namespace RodGame.Game.Gameplay
 {
     public partial class GameScreen: Screen
     {
-        private MapStore mapStore;
-        private EditorHUD gameHUD = new();
-        private CameraManager cameraManager;
+        protected ChartManager GameChartManager;
+        protected Camera GameCamera;
 
-        private ChartModel chartModel;
+        [Cached] protected NamespacedResourceStore<byte[]> MapResourceStore { get; set; }
+        [Cached] protected ITrackStore MapResourceTrackStore { get; set; }
 
-        private Container gameplayContainer = new() { RelativeSizeAxes = Axes.Both };
-        private Container dynamicBackgroundContainer = new() { RelativeSizeAxes = Axes.Both };
-        private Container stationaryBackgroundContainer = new() { RelativeSizeAxes = Axes.Both };
-        private Container hudBackgroundContainer = new() { RelativeSizeAxes = Axes.Both };
+        [Cached] protected Container GameplayContainer { get; set; } = new() { RelativeSizeAxes = Axes.Both };
+        [Cached] protected Container DynamicBackgroundContainer { get; set; } = new() { RelativeSizeAxes = Axes.Both };
+        [Cached] protected Container StationaryBackgroundContainer { get; set; } = new() { RelativeSizeAxes = Axes.Both };
+        [Cached] protected Container HudBackgroundContainer { get; set; } = new() { RelativeSizeAxes = Axes.Both };
 
-        [Cached]
-        private GameClock gameClock { get; set; } = new();
+        [Cached] protected ChartSong GameSong { get; set; } = new();
+        [Cached] protected ChartModel GameChart { get; set; }
 
-        [BackgroundDependencyLoader]
-        private void load(ITrackStore trackStore)
+        public void Load(MapStore mapStore, string mapJsonPath)
         {
-            var mapStore = new NamespacedResourceStore<byte[]>(Game.Resources, "Maps");
-            mapStore.AddExtension("json");
-            byte[] jsonBytes = mapStore.Get("map");
+            string mapDirectory = string.Join("", mapJsonPath.Split('/')[..^1]);
+            MapResourceStore = new(Game.Resources, "Maps/" + mapDirectory);
+            MapResourceStore.AddExtension("json");
+            MapResourceStore.AddExtension("mp3");
 
-            foreach (var item in mapStore.GetAvailableResources())
-            {
-                Console.WriteLine(item);
-                new ChartManager(Game.Resources, chartModel, item);
-            }
+            string songName = MapResourceStore.GetAvailableResources().Where(name => name.EndsWith(".mp3")).First();
+            Track track = MapResourceTrackStore.Get(songName);
+            GameSong.Load(track);
 
-            chartModel = new ChartModel(jsonBytes);
-
-            Track song = trackStore.Get(chartModel.SongId);
-            gameClock.Load(song);
-
-
-            stationaryBackgroundContainer.Add(
+            StationaryBackgroundContainer.Add(
                 new Box
                 {
                     Colour = Color4.Violet,
@@ -60,14 +54,14 @@ namespace RodGame.Game.Gameplay
                 }
             );
 
-            foreach (var rodModel in chartModel.RodModels)
+            foreach (var rodModel in GameChart.RodModels)
             {
                 var rodDrawable = new Rod
                 {
-                    Model = rodModel
+                    Model = rodModel,
+                    Notes = new List<Note>()
                 };
 
-                rodDrawable.Notes = new List<Note>();
                 foreach (var noteModel in rodModel.NoteModels)
                 {
                     var noteDrawable = new Note
@@ -76,13 +70,13 @@ namespace RodGame.Game.Gameplay
                     };
                     rodDrawable.Notes.Add(noteDrawable);
 
-                    gameplayContainer.Add(noteDrawable);
+                    GameplayContainer.Add(noteDrawable);
                 }
 
-                gameplayContainer.Add(rodDrawable);
+                GameplayContainer.Add(rodDrawable);
             }
 
-            dynamicBackgroundContainer.Add(new Box()
+            DynamicBackgroundContainer.Add(new Box()
             {
                 Colour = Color4.Aquamarine,
                 Size = new Vector2(10, 10),
@@ -90,26 +84,30 @@ namespace RodGame.Game.Gameplay
                 RelativePositionAxes = Axes.None,
                 Anchor = Anchor.Centre,
                 Origin = Anchor.Centre,
-                Position = new Vector2 (-10, 10),
+                Position = new Vector2(-10, 10),
             });
-             
-            hudBackgroundContainer.Add(gameHUD);
 
             InternalChildren = new Drawable[]
             {
-                stationaryBackgroundContainer,
-                dynamicBackgroundContainer,
-                gameplayContainer,
-                hudBackgroundContainer
+                StationaryBackgroundContainer,
+                DynamicBackgroundContainer,
+                GameplayContainer,
+                HudBackgroundContainer
             };
 
-            cameraManager = new(stationaryBackgroundContainer, dynamicBackgroundContainer, gameplayContainer);
+            GameCamera = new(StationaryBackgroundContainer, DynamicBackgroundContainer, GameplayContainer);
+        }
+
+        [BackgroundDependencyLoader]
+        private void load(AudioManager audio)
+        {
+
         }
 
         protected override void Update()
         {
             base.Update();
-            gameClock.Update();
+            GameSong.Update();
         }
     }
 }

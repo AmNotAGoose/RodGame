@@ -19,7 +19,7 @@ using RodGame.Game.Gameplay.Models;
 
 namespace RodGame.Game.Gameplay
 {
-    public partial class GameClock
+    public partial class ChartSong
     {
         public Track Song;
         public bool IsSeeking = false;

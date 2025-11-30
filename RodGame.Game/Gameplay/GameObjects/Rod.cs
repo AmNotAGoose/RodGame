@@ -20,7 +20,7 @@ namespace RodGame.Game.Gameplay.GameObjects
         public RodModel Model;
 
         [Resolved]
-        private GameClock gameClock { get; set; }
+        private ChartSong gameClock { get; set; }
 
         private Vector2 currentPosition = Vector2.Zero;
         private double currentRotation = 0d;

@@ -9,7 +9,7 @@ using osuTK;
 
 namespace RodGame.Game.Gameplay
 {
-    public class CameraManager(
+    public class Camera(
         Container _stationaryBackgroundContainer,
         Container _dynamicBackgroundContainer,
         Container _gameplayContainer)
