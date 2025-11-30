@@ -26,24 +26,23 @@ namespace RodGame.Game.Gameplay
         protected ChartManager GameChartManager;
         protected Camera GameCamera;
 
-        [Cached] protected NamespacedResourceStore<byte[]> MapResourceStore { get; set; }
-        [Cached] protected ITrackStore MapResourceTrackStore { get; set; }
+        protected NamespacedResourceStore<byte[]> MapResourceStore { get; set; }
+        protected ITrackStore MapResourceTrackStore { get; set; }
 
-        [Cached] protected Container GameplayContainer { get; set; } = new() { RelativeSizeAxes = Axes.Both };
-        [Cached] protected Container DynamicBackgroundContainer { get; set; } = new() { RelativeSizeAxes = Axes.Both };
-        [Cached] protected Container StationaryBackgroundContainer { get; set; } = new() { RelativeSizeAxes = Axes.Both };
-        [Cached] protected Container HudBackgroundContainer { get; set; } = new() { RelativeSizeAxes = Axes.Both };
+        protected Container GameplayContainer { get; set; } = new() { RelativeSizeAxes = Axes.Both };
+        protected Container DynamicBackgroundContainer { get; set; } = new() { RelativeSizeAxes = Axes.Both };
+        protected Container StationaryBackgroundContainer { get; set; } = new() { RelativeSizeAxes = Axes.Both };
+        protected Container HudBackgroundContainer { get; set; } = new() { RelativeSizeAxes = Axes.Both };
 
-        [Cached] protected ChartSong GameSong { get; set; } = new();
-        [Cached] protected ChartModel GameChart { get; set; }
+        [Cached] private ChartSong gameSong { get; set; } = new();
+        protected ChartModel GameChart { get; set; }
 
         public GameScreen(string mapJsonPath)
         {
-            this.MapJsonPath = mapJsonPath;
+            MapJsonPath = mapJsonPath;
         }
 
-        [BackgroundDependencyLoader]
-        protected virtual void Load(AudioManager audio)
+        protected void Load(AudioManager audio)
         {
             string mapDirectory = string.Join("", MapJsonPath.Split('/')[..^1]);
             MapResourceStore = new(Game.Resources, "Maps/" + mapDirectory);
@@ -53,7 +52,12 @@ namespace RodGame.Game.Gameplay
 
             string songName = MapResourceStore.GetAvailableResources().Where(name => name.EndsWith(".mp3")).First();
             Track track = MapResourceTrackStore.Get(songName);
-            GameSong.Load(track);
+            gameSong.Load(track);
+
+            string chartName = MapResourceStore.GetAvailableResources().Where(name => name.EndsWith(".json")).First();
+            Console.WriteLine(chartName);
+            ChartModel chartModel = new(MapResourceStore.Get(chartName));
+            GameChart = chartModel;
 
             StationaryBackgroundContainer.Add(
                 new Box
@@ -110,7 +114,7 @@ namespace RodGame.Game.Gameplay
         protected override void Update()
         {
             base.Update();
-            GameSong.Update();
+            gameSong.Update();
         }
     }
 }

@@ -9,7 +9,4 @@
     <EmbeddedResource Include="Tracks\**\*" />
     <EmbeddedResource Include="Maps\**\*" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Maps\Diddy\" />
-  </ItemGroup>
 </Project>

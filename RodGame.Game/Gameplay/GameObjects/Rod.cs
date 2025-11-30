@@ -19,8 +19,7 @@ namespace RodGame.Game.Gameplay.GameObjects
     {
         public RodModel Model;
 
-        [Resolved]
-        private ChartSong gameClock { get; set; }
+        [Resolved] private ChartSong gameSong { get; set; }
 
         private Vector2 currentPosition = Vector2.Zero;
         private double currentRotation = 0d;
@@ -48,7 +47,7 @@ namespace RodGame.Game.Gameplay.GameObjects
         protected override void Update()
         {
             // Rotation
-            Rotation = (float)gameClock.Song.CurrentTime * (float)currentRotationSpeed;
+            Rotation = (float)gameSong.Song.CurrentTime * (float)currentRotationSpeed;
         }
     }
  }

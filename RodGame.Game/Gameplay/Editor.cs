@@ -27,7 +27,7 @@ namespace RodGame.Game.Gameplay
         }
 
         [BackgroundDependencyLoader]
-        protected override void Load(AudioManager audio)
+        private void load(AudioManager audio)
         {
             base.Load(audio);
 
