@@ -11,12 +11,19 @@ namespace RodGame.Game.Gameplay
 {
     public partial class ClickableSliderBar<T> : BasicSliderBar<double> where T : struct, INumber<T>, IMinMaxValue<T>
     {
+        public Action OnSliderClick;
         public Action OnSliderDrag;
 
         protected override void OnDrag(DragEvent e)
         {
             OnSliderDrag?.Invoke();
             base.OnDrag(e);
+        }
+
+        protected override bool OnClick(ClickEvent e)
+        {
+            OnSliderClick?.Invoke();
+            return base.OnClick(e);
         }
     }
 }

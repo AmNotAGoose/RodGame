@@ -10,6 +10,7 @@ using osu.Framework.IO.Stores;
 using osu.Framework.Screens;
 using osuTK;
 using osuTK.Graphics;
+using osuTK.Input;
 using RodGame.Game.Gameplay.GameObjects;
 using RodGame.Game.Gameplay.HUD;
 using RodGame.Game.Gameplay.Models;
@@ -19,6 +20,7 @@ namespace RodGame.Game.Gameplay
     public partial class GameScreen: Screen
     {
         private MapStore mapStore;
+        private EditorHUD gameHUD = new();
         private CameraManager cameraManager;
 
         private ChartModel chartModel;
@@ -45,7 +47,9 @@ namespace RodGame.Game.Gameplay
             }
 
             chartModel = new ChartModel(jsonBytes);
-            gameClock.Load(trackStore, chartModel);
+
+            Track song = trackStore.Get(chartModel.SongId);
+            gameClock.Load(song);
 
             stationaryBackgroundContainer.Add(
                 new Box
@@ -87,6 +91,8 @@ namespace RodGame.Game.Gameplay
                 Origin = Anchor.Centre,
                 Position = new Vector2 (-10, 10),
             });
+             
+            hudBackgroundContainer.Add(gameHUD);
 
             InternalChildren = new Drawable[]
             {
@@ -97,6 +103,12 @@ namespace RodGame.Game.Gameplay
             };
 
             cameraManager = new(stationaryBackgroundContainer, dynamicBackgroundContainer, gameplayContainer);
+        }
+
+        protected override void Update()
+        {
+            base.Update();
+            gameClock.Update();
         }
     }
 }

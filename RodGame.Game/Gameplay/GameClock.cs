@@ -22,6 +22,7 @@ namespace RodGame.Game.Gameplay
     public partial class GameClock
     {
         public Track Song;
+        public bool IsSeeking = false;
 
         public BindableDouble UIUpdateTime { get; set; } = new BindableDouble
         {
@@ -39,14 +40,17 @@ namespace RodGame.Game.Gameplay
 
         public void Update()
         {
+            if (IsSeeking) return;
             UIUpdateTime.Value = Song.CurrentTime / Song.Length;
-
         }
 
-        public void SetTime(double timeMs)
+        public async void SetTime(double timeMs)
         {
-            Song.Seek(timeMs);
+            IsSeeking = true;
+            await Song.SeekAsync(timeMs);
             UIUpdateTime.Value = timeMs / Song.Length;
+            Song.Seek(timeMs);
+            IsSeeking = false;
         }
     }
 }
