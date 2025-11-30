@@ -42,6 +42,7 @@ namespace RodGame.Game.Gameplay.GameObjects
             Anchor = Anchor.Centre;
             Size = new Vector2(10000, 10);
             Colour = Color4.Black;
+
         }
 
         protected override void Update()

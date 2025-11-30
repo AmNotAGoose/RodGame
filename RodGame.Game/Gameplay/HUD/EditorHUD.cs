@@ -18,7 +18,7 @@ using RodGame.Game.Gameplay.Models;
 
 namespace RodGame.Game.Gameplay.HUD
 {
-    public partial class GameHUD: CompositeDrawable
+    public partial class EditorHUD: CompositeDrawable
     {
         [Resolved]
         private GameClock gameClock { get; set; }
@@ -48,13 +48,6 @@ namespace RodGame.Game.Gameplay.HUD
                     Current = gameClock.UIUpdateTime
                 }
             };
-
-            //timeSliderBar.Current.BindValueChanged(value => gameClock.SetTime(value.NewValue));
-
-            //timeSliderBar.Current.BindValueChanged(value =>
-            //{
-            //    timeSliderBar.Current.Value = value.NewValue;
-            //});           
         }
 
         private void setGameClockTime()

@@ -4,7 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using JetBrains.Annotations;
+using osu.Framework;
 using osu.Framework.Allocation;
+using osu.Framework.Audio;
 using osu.Framework.Audio.Sample;
 using osu.Framework.Audio.Track;
 using osu.Framework.Bindables;
@@ -17,13 +19,9 @@ using RodGame.Game.Gameplay.Models;
 
 namespace RodGame.Game.Gameplay
 {
-    public partial class GameClock() : Drawable
+    public partial class GameClock
     {
-        private ChartModel chartModel;
-        //public string TrackName { get; } = trackName;
-
         public Track Song;
-        public bool IsSeeking = false;
 
         public BindableDouble UIUpdateTime { get; set; } = new BindableDouble
         {
@@ -32,35 +30,25 @@ namespace RodGame.Game.Gameplay
             Value = 0
         };
 
-        public void Load(ITrackStore trackStore, ChartModel _chartModel)
+        public void Load(Track song)
         {
-            chartModel = _chartModel;
-            Song = trackStore.Get(chartModel.SongId);
+            Song = song;
             Song.Looping = false;
-            Console.WriteLine(Song.Length.ToString());
-            
-            //UIUpdateTime.BindValueChanged(value =>
-            //{
-            //    SetTime(Song.Length * value.NewValue);
-            //});
-
             Song.Start();
         }
 
-        protected override void Update()
+        public void Update()
         {
-            base.Update();
-            //if (IsSeeking) { IsSeeking = false; return; }
-            //UIUpdateTime.Value = Song.CurrentTime / Song.Length;
+            UIUpdateTime.Value = Song.CurrentTime / Song.Length;
+
         }
 
         public void SetTime(double timeMs)
         {
-            //GameplayClock.CurrentTime = timeMs;
-            IsSeeking = true;
             Song.Seek(timeMs);
             UIUpdateTime.Value = timeMs / Song.Length;
         }
     }
 }
+
 

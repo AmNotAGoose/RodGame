@@ -16,17 +16,29 @@ using RodGame.Game.Gameplay.Models;
 
 namespace RodGame.Game.Gameplay
 {
-    public partial class GameScreen: Screen
+    public partial class Editor: Screen
     {
-        private MapStore mapStore;
+        private Container gameplayContainer = new()
+        {
+            RelativeSizeAxes = Axes.Both,   
+        };
+        private Container dynamicBackgroundContainer = new()
+        {
+            RelativeSizeAxes = Axes.Both,
+        };
+        private Container stationaryBackgroundContainer = new()
+        {
+            RelativeSizeAxes = Axes.Both,
+        };
+        private Container hudBackgroundContainer = new()
+        {
+            RelativeSizeAxes = Axes.Both,
+        };
+
         private CameraManager cameraManager;
+        private EditorHUD gameHUD = new();
 
         private ChartModel chartModel;
-
-        private Container gameplayContainer = new() { RelativeSizeAxes = Axes.Both };
-        private Container dynamicBackgroundContainer = new() { RelativeSizeAxes = Axes.Both };
-        private Container stationaryBackgroundContainer = new() { RelativeSizeAxes = Axes.Both };
-        private Container hudBackgroundContainer = new() { RelativeSizeAxes = Axes.Both };
 
         [Cached]
         private GameClock gameClock { get; set; } = new();
@@ -34,15 +46,9 @@ namespace RodGame.Game.Gameplay
         [BackgroundDependencyLoader]
         private void load(ITrackStore trackStore)
         {
-
             var mapStore = new NamespacedResourceStore<byte[]>(Game.Resources, "Maps");
             mapStore.AddExtension("json");
             byte[] jsonBytes = mapStore.Get("map");
-
-            foreach (var item in mapStore.GetAvailableResources())
-            {
-                Console.WriteLine(item);
-            }
 
             chartModel = new ChartModel(jsonBytes);
             gameClock.Load(trackStore, chartModel);
@@ -88,6 +94,9 @@ namespace RodGame.Game.Gameplay
                 Position = new Vector2 (-10, 10),
             });
 
+            hudBackgroundContainer.Add(gameHUD);
+            hudBackgroundContainer.Add(gameClock);
+
             InternalChildren = new Drawable[]
             {
                 stationaryBackgroundContainer,
@@ -97,6 +106,8 @@ namespace RodGame.Game.Gameplay
             };
 
             cameraManager = new(stationaryBackgroundContainer, dynamicBackgroundContainer, gameplayContainer);
+
+            cameraManager.MoveCamTo(new Vector2(300, 300), 3000, Easing.None);
         }
     }
 }

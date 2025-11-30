@@ -17,6 +17,6 @@ namespace RodGame.Game.Gameplay
         {
             OnSliderDrag?.Invoke();
             base.OnDrag(e);
-        } 
+        }
     }
 }
