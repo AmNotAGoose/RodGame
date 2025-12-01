@@ -10,7 +10,9 @@ namespace RodGame.Game.Gameplay.Models
 {
     public enum NoteEventNames
     {
-
+        ChangeSpeed,
+        Reverse,
+        Anchor, // sets new origin
     }
 
     public class NoteEventModel : GameObjectEventModel

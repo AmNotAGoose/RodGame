@@ -14,5 +14,6 @@ namespace RodGame.Game.Gameplay.Models
         public List<NoteModel> NoteModels = new();
 
         public float StartRotationSpeed;
+        public float StartRotation;
     }
 }

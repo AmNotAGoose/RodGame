@@ -44,15 +44,23 @@ namespace RodGame.Game.Gameplay.GameObjects
 
         public Vector2 GetWorldSpaceAtTime(double timeMs, double distanceFromRodOrigin)
         {
-            // I WILL DO THIS TOMORROW
-            // TODO: DO IT TOMORROW RIGHT NOW DO IT YES
+            
             return Vector2.Zero;
         }
 
         protected override void Update()
         {
             // Rotation
-            Rotation = (float)gameSong.Song.CurrentTime * (float)currentRotationSpeed;
+            Rotation = Model.StartRotation + (float)gameSong.Song.CurrentTime * (float)currentRotationSpeed;
+        }
+
+        public double GetRotationAtTime()
+        {
+
+
+
+            // OMG im gonn a do this tomorrow i don can think if ono
+
         }
     }
  }

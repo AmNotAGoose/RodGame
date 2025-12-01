@@ -29,8 +29,8 @@ namespace RodGame.Game
         {
             base.LoadComplete();
 
-            //screenStack.Push(new Editor(mapStore.GetAvailableMapIDs().First()));
-            screenStack.Push(new MenuScreen());
+            screenStack.Push(new Editor(mapStore.GetAvailableMapIDs().First()));
+            //screenStack.Push(new MenuScreen());
         }
     }
 }

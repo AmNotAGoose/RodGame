@@ -9,6 +9,7 @@
             "StartPosition": [ 0, 0 ],
             "StartTime": 0.0,
             "StartRotationSpeed": 0.1,
+            "StartRotation": 0,
             "Events": [],
             "NoteModels": [
                 {
@@ -28,6 +29,7 @@
             "StartPosition": [ 50, 0 ],
             "StartTime": 1.0,
             "StartRotationSpeed": 0.05,
+            "StartRotation": 0,
             "Events": [],
             "NoteModels": [
                 {

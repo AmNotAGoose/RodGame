@@ -10,11 +10,10 @@ namespace RodGame.Game.Gameplay.Models
 {
     public enum RodEventNames
     {
-        ChangeSpeed,
         Destroy,
     }
 
-    public class RodEventModel : GameObjectEventModel
+    public class RodEventModel : GameObjectEventModel // these should NEVER IMPACT THE POSITIONING / ROTATION OF THE ROD THAT STUFF BELONGS IN NoteEventModel
     {
         public RodEventNames EventName;
     }

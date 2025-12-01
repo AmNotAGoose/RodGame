@@ -18,14 +18,12 @@ using RodGame.Game.Gameplay.Models;
 
 namespace RodGame.Game.Gameplay.HUD
 {
-    public partial class EditorHUD: CompositeDrawable
+    public partial class ObjectVliewSlider: CompositeDrawable
     {
         [Resolved] private ChartSong gameSong { get; set; }
-
-        private BasicSliderBar<double> timeSliderBar;
         private ChartModel GameChart { get; set; }
 
-        public EditorHUD(ChartModel gameChart)
+        public ObjectVliewSlider(ChartModel gameChart)
         {
             GameChart = gameChart;
         }
@@ -39,7 +37,7 @@ namespace RodGame.Game.Gameplay.HUD
 
             InternalChildren = new Drawable[]
             {
-                timeSliderBar = new ClickableSliderBar<double>()
+                new ClickableSliderBar<double>()
                 {
                     OnSliderClick = setGameClockTime,
                     OnSliderDrag = setGameClockTime,
@@ -52,25 +50,11 @@ namespace RodGame.Game.Gameplay.HUD
                     Y = -0.05f,
                     Current = gameSong.UIUpdateTime
                 },
-                new BasicButton()
-                {
-                    RelativeSizeAxes = Axes.Both,
-                    RelativePositionAxes = Axes.Both,
-                    Width = 0.1f,
-                    Height = 0.1f,
-                    Anchor = Anchor.CentreLeft,
-                },
-                new BasicButton()
-                {
-                    RelativeSizeAxes = Axes.Both,
-                    RelativePositionAxes = Axes.Both,
-                    Width = 0.1f,
-                    Height = 0.1f,
-                    Anchor = Anchor.CentreLeft,
-                    Position = new Vector2(0, 0.5f),
-                }
             };
         }
+
+
+
 
         private void setGameClockTime()
         {

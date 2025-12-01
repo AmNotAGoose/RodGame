@@ -36,6 +36,7 @@ namespace RodGame.Game.Gameplay.Models
                     StartPosition = new Vector2(rodDto.StartPosition[0], rodDto.StartPosition[1]),
                     StartTime = rodDto.StartTime,
                     StartRotationSpeed = rodDto.StartRotationSpeed,
+                    StartRotation = rodDto.StartRotation,
                     Events = rodDto.Events ?? new List<RodEventModel>(),
                     NoteModels = new List<NoteModel>()
                 };
@@ -73,6 +74,7 @@ namespace RodGame.Game.Gameplay.Models
             public float[] StartPosition;
             public double StartTime;
             public float StartRotationSpeed;
+            public float StartRotation;
             public List<RodEventModel> Events;
             public List<NoteDto> NoteModels;
         }
@@ -85,3 +87,4 @@ namespace RodGame.Game.Gameplay.Models
         }
     }
 }
+
