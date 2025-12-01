@@ -16,7 +16,7 @@ namespace RodGame.Game.Gameplay.GameObjects
     {
         public NoteModel Model;
 
-        private Vector2 currentPosition = Vector2.Zero;
+        private Vector2 currentPosition;
 
         [BackgroundDependencyLoader]
         private void load(IRenderer renderer)

@@ -44,6 +44,7 @@ namespace RodGame.Game.Gameplay
 
         protected void Load(AudioManager audio)
         {
+            // TODO: seperate ts loading somwehre else
             string mapDirectory = string.Join("", MapJsonPath.Split('/')[..^1]);
             MapResourceStore = new(Game.Resources, "Maps/" + mapDirectory);
             MapResourceStore.AddExtension("json");

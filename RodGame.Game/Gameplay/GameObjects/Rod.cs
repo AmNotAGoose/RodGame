@@ -22,7 +22,6 @@ namespace RodGame.Game.Gameplay.GameObjects
         [Resolved] private ChartSong gameSong { get; set; }
 
         private Vector2 currentPosition = Vector2.Zero;
-        private double currentRotation = 0d;
         private double currentRotationSpeed = 0d;
 
         public List<Note> Notes;
@@ -41,7 +40,13 @@ namespace RodGame.Game.Gameplay.GameObjects
             Anchor = Anchor.Centre;
             Size = new Vector2(10000, 10);
             Colour = Color4.Black;
+        }
 
+        public Vector2 GetWorldSpaceAtTime(double timeMs, double distanceFromRodOrigin)
+        {
+            // I WILL DO THIS TOMORROW
+            // TODO: DO IT TOMORROW RIGHT NOW DO IT YES
+            return Vector2.Zero;
         }
 
         protected override void Update()

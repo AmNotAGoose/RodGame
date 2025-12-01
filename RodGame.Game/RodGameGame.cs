@@ -28,8 +28,9 @@ namespace RodGame.Game
         protected override void LoadComplete()
         {
             base.LoadComplete();
-             
-            screenStack.Push(new Editor(mapStore.GetAvailableMapIDs().First()));
+
+            //screenStack.Push(new Editor(mapStore.GetAvailableMapIDs().First()));
+            screenStack.Push(new MenuScreen());
         }
     }
 }
