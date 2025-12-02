@@ -8,6 +8,7 @@ using osu.Framework.Audio.Track;
 using osu.Framework.Graphics;
 using osu.Framework.Graphics.Containers;
 using osu.Framework.Graphics.Shapes;
+using osu.Framework.Input.Events;
 using osu.Framework.IO.Stores;
 using osu.Framework.Screens;
 using osuTK;
@@ -73,7 +74,6 @@ namespace RodGame.Game.Gameplay
                 var rodDrawable = new Rod
                 {
                     Model = rodModel,
-                    Notes = new List<Note>()
                 };
 
                 foreach (var noteModel in rodModel.NoteModels)
@@ -82,7 +82,7 @@ namespace RodGame.Game.Gameplay
                     {
                         Model = noteModel
                     };
-                    rodDrawable.Notes.Add(noteDrawable);
+                    rodDrawable.AddNote(noteDrawable);
 
                     GameplayContainer.Add(noteDrawable);
                 }
@@ -111,11 +111,21 @@ namespace RodGame.Game.Gameplay
 
             GameCamera = new(StationaryBackgroundContainer, DynamicBackgroundContainer, GameplayContainer);
         }
-        
+
         protected override void Update()
         {
             base.Update();
             gameSong.Update();
+        }
+
+        protected override bool OnKeyDown(KeyDownEvent e)
+        {
+            if (e.Key == Key.Space)
+            {
+                gameSong.TogglePause();
+            }
+
+            return base.OnKeyDown(e);
         }
     }
 }

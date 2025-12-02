@@ -18,48 +18,8 @@ using RodGame.Game.Gameplay.Models;
 
 namespace RodGame.Game.Gameplay.HUD
 {
-    public partial class ObjectVliewSlider: CompositeDrawable
+    public partial class ObjectViewSlider: CompositeDrawable
     {
-        [Resolved] private ChartSong gameSong { get; set; }
-        private ChartModel GameChart { get; set; }
 
-        public ObjectVliewSlider(ChartModel gameChart)
-        {
-            GameChart = gameChart;
-        }
-
-        [BackgroundDependencyLoader]
-        private void load()
-        {
-            RelativeSizeAxes = Axes.Both;
-            Anchor = Anchor.Centre;
-            Origin = Anchor.Centre;
-
-            InternalChildren = new Drawable[]
-            {
-                new ClickableSliderBar<double>()
-                {
-                    OnSliderClick = setGameClockTime,
-                    OnSliderDrag = setGameClockTime,
-                    RelativeSizeAxes = Axes.Both,
-                    RelativePositionAxes = Axes.Both,
-                    Width = 0.95f,
-                    Height = 0.1f,
-                    Anchor = Anchor.BottomCentre,
-                    Origin = Anchor.BottomCentre,
-                    Y = -0.05f,
-                    Current = gameSong.UIUpdateTime
-                },
-            };
-        }
-
-
-
-
-        private void setGameClockTime()
-        {
-            gameSong.SetTime(timeSliderBar.Current.Value * gameSong.Song.Length);
-            
-        }
     }
 }

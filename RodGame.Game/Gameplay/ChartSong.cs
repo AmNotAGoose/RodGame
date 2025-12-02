@@ -16,6 +16,7 @@ using osu.Framework.Graphics.Containers;
 using osu.Framework.Timing;
 using osuTK;
 using RodGame.Game.Gameplay.Models;
+using Vulkan;
 
 namespace RodGame.Game.Gameplay
 {
@@ -51,6 +52,17 @@ namespace RodGame.Game.Gameplay
             UIUpdateTime.Value = timeMs / Song.Length;
             Song.Seek(timeMs);
             IsSeeking = false;
+        }
+
+        public void TogglePause()
+        {
+            if (Song.IsRunning)
+            {
+                Song.Stop();
+            } else
+            {
+                Song.Start();
+            }
         }
     }
 }

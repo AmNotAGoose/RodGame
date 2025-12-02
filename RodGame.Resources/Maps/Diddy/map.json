@@ -15,12 +15,12 @@
                 {
                     "Id": 1,
                     "StartPosition": [ 100, 0 ],
-                    "StartTime": 0.25
+                    "StartTime": 0
                 },
                 {
                     "Id": 2,
-                    "StartPosition": [ 0, -100 ],
-                    "StartTime": 0.5
+                    "StartPosition": [ -100, 0 ],
+                    "StartTime": 0
                 }
             ]
         },
@@ -34,8 +34,8 @@
             "NoteModels": [
                 {
                     "Id": 3,
-                    "StartPosition": [ 100, 200 ],
-                    "StartTime": 1.25
+                    "StartPosition": [ 200, 0 ],
+                    "StartTime": 1600
                 }
             ]
         }

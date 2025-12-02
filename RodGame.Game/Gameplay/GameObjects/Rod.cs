@@ -24,7 +24,7 @@ namespace RodGame.Game.Gameplay.GameObjects
         private Vector2 currentPosition = Vector2.Zero;
         private double currentRotationSpeed = 0d;
 
-        public List<Note> Notes;
+        private List<Note> notes = new();
 
         [BackgroundDependencyLoader]
         private void load(IRenderer renderer)
@@ -42,25 +42,33 @@ namespace RodGame.Game.Gameplay.GameObjects
             Colour = Color4.Black;
         }
 
-        public Vector2 GetWorldSpaceAtTime(double timeMs, double distanceFromRodOrigin)
+        public void AddNote(Note note)
         {
-            
-            return Vector2.Zero;
+            notes.Add(note);
+            note.SetParentRod(this);
+        }
+
+        public Vector2 GetRodPositionAsWorldSpaceAtTime(double timeMs, double distanceFromRodOrigin)
+        {
+            double rotationAtTime = GetRotationAtTime(timeMs);
+            double rotationRadians = rotationAtTime * (Math.PI / 180.0);
+
+            Vector2 offset = new Vector2(
+                (float)(Math.Cos(rotationRadians) * distanceFromRodOrigin),
+                (float)(Math.Sin(rotationRadians) * distanceFromRodOrigin)
+            );
+
+            return currentPosition + offset;
         }
 
         protected override void Update()
         {
-            // Rotation
             Rotation = Model.StartRotation + (float)gameSong.Song.CurrentTime * (float)currentRotationSpeed;
         }
 
-        public double GetRotationAtTime()
+        public double GetRotationAtTime(double timeMs)
         {
-
-
-
-            // OMG im gonn a do this tomorrow i don can think if ono
-
+            return Model.StartRotation + (float)timeMs * (float)currentRotationSpeed;
         }
     }
  }

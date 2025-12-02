@@ -1,3 +1,4 @@
+using System;
 using osu.Framework.Allocation;
 using osu.Framework.Graphics;
 using osu.Framework.Graphics.Rendering;
@@ -17,20 +18,28 @@ namespace RodGame.Game.Gameplay.GameObjects
         public NoteModel Model;
 
         private Vector2 currentPosition;
+        [Resolved] private ChartSong gameSong { get; set; }
+
+        private Rod parentRod;
+
 
         [BackgroundDependencyLoader]
         private void load(IRenderer renderer)
         {
-            currentPosition = Model.StartPosition;
-            Position = currentPosition;
-
             Texture = renderer.WhitePixel;
             RelativeSizeAxes = Axes.None;
             RelativePositionAxes = Axes.None;
             Origin = Anchor.Centre;
             Anchor = Anchor.Centre;
-            Size = new Vector2(100, 100);
+            Size = new Vector2(50, 50);
             Colour = Color4.Black;
+        }
+
+        public void SetParentRod(Rod rod)
+        {
+            parentRod = rod;
+            Console.WriteLine("asdf");
+            Position = parentRod.GetRodPositionAsWorldSpaceAtTime(Model.StartTime, Model.StartPosition.X);
         }
     }
 }

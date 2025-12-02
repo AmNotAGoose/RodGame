@@ -20,7 +20,7 @@ namespace RodGame.Game.Gameplay
 {
     public partial class Editor : GameScreen
     {
-        private EditorHUD gameHUD = new();
+        private EditorHUD gameHUD;
 
         public Editor(string mapJsonPath) : base(mapJsonPath)
         {
@@ -30,6 +30,8 @@ namespace RodGame.Game.Gameplay
         private void load(AudioManager audio)
         {
             base.Load(audio);
+
+            gameHUD = new(GameChart);
 
             HudBackgroundContainer.Add(gameHUD);
         }
