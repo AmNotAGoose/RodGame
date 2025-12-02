@@ -52,23 +52,23 @@ namespace RodGame.Game.Gameplay.HUD
                     Y = -0.05f,
                     Current = gameSong.UIUpdateTime
                 },
-                new BasicButton()
-                {
-                    RelativeSizeAxes = Axes.Both,
-                    RelativePositionAxes = Axes.Both,
-                    Width = 0.1f,
-                    Height = 0.1f,
-                    Anchor = Anchor.CentreLeft,
-                },
-                new BasicButton()
-                {
-                    RelativeSizeAxes = Axes.Both,
-                    RelativePositionAxes = Axes.Both,
-                    Width = 0.1f,
-                    Height = 0.1f,
-                    Anchor = Anchor.CentreLeft,
-                    Position = new Vector2(0, 0.5f),
-                }
+                //new BasicButton()
+                //{
+                //    RelativeSizeAxes = Axes.Both,
+                //    RelativePositionAxes = Axes.Both,
+                //    Width = 0.1f,
+                //    Height = 0.1f,
+                //    Anchor = Anchor.CentreLeft,
+                //},
+                //new BasicButton()
+                //{
+                //    RelativeSizeAxes = Axes.Both,
+                //    RelativePositionAxes = Axes.Both,
+                //    Width = 0.1f,
+                //    Height = 0.1f,
+                //    Anchor = Anchor.CentreLeft,
+                //    Position = new Vector2(0, 0.5f),
+                //}
             };
         }
 
