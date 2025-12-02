@@ -15,12 +15,12 @@
                 {
                     "Id": 1,
                     "StartPosition": [ 100, 0 ],
-                    "StartTime": 0
+                    "StartTime": 1000
                 },
                 {
                     "Id": 2,
                     "StartPosition": [ -100, 0 ],
-                    "StartTime": 0
+                    "StartTime": 2400
                 }
             ]
         },
