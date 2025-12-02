@@ -7,7 +7,10 @@ using osu.Framework.Audio;
 using osu.Framework.Audio.Track;
 using osu.Framework.Graphics;
 using osu.Framework.Graphics.Containers;
+using osu.Framework.Graphics.Rendering;
 using osu.Framework.Graphics.Shapes;
+using osu.Framework.Graphics.Sprites;
+using osu.Framework.Graphics.Textures;
 using osu.Framework.Input.Events;
 using osu.Framework.IO.Stores;
 using osu.Framework.Screens;
@@ -29,6 +32,7 @@ namespace RodGame.Game.Gameplay
 
         protected NamespacedResourceStore<byte[]> MapResourceStore { get; set; }
         protected ITrackStore MapResourceTrackStore { get; set; }
+        protected ITextureStore MapResourceTextureStore { get; set; }
 
         protected Container GameplayContainer { get; set; } = new() { RelativeSizeAxes = Axes.Both };
         protected Container DynamicBackgroundContainer { get; set; } = new() { RelativeSizeAxes = Axes.Both };
@@ -43,14 +47,17 @@ namespace RodGame.Game.Gameplay
             MapJsonPath = mapJsonPath;
         }
 
-        protected void Load(AudioManager audio)
+        protected void Load(AudioManager audio, IRenderer renderer)
         {
             // TODO: seperate ts loading somwehre else
             string mapDirectory = string.Join("", MapJsonPath.Split('/')[..^1]);
             MapResourceStore = new(Game.Resources, "Maps/" + mapDirectory);
             MapResourceStore.AddExtension("json");
             MapResourceStore.AddExtension("mp3");
+            MapResourceStore.AddExtension("png");
+            MapResourceStore.AddExtension("jpg");
             MapResourceTrackStore = audio.GetTrackStore(MapResourceStore);
+            MapResourceTextureStore = new TextureStore(renderer, new TextureLoaderStore(MapResourceStore), scaleAdjust: 1);
 
             string songName = MapResourceStore.GetAvailableResources().Where(name => name.EndsWith(".mp3")).First();
             Track track = MapResourceTrackStore.Get(songName);
@@ -61,11 +68,21 @@ namespace RodGame.Game.Gameplay
             ChartModel chartModel = new(MapResourceStore.Get(chartName));
             GameChart = chartModel;
 
+            // TODO: implement the actual system latr
+
+            string stationaryBackgroundName = MapResourceStore.GetAvailableResources().Where(name => name.StartsWith("stationary")).First();
+            Texture stationaryBackgroundTexture = MapResourceTextureStore.Get(stationaryBackgroundName);
+
+            string dynamicBackgroundName = MapResourceStore.GetAvailableResources().Where(name => name.StartsWith("dynamic")).First();
+            Texture dynamicBackgroundTexture = MapResourceTextureStore.Get(dynamicBackgroundName);
+
+
             StationaryBackgroundContainer.Add(
-                new Box
+                new Sprite
                 {
-                    Colour = Color4.Violet,
                     RelativeSizeAxes = Axes.Both,
+                    Texture = stationaryBackgroundTexture,
+                    FillMode = FillMode.Fill,
                 }
             );
 
@@ -92,15 +109,16 @@ namespace RodGame.Game.Gameplay
                 GameplayContainer.Add(rodDrawable);
             }
 
-            DynamicBackgroundContainer.Add(new Box()
+            DynamicBackgroundContainer.Add(new Sprite()
             {
-                Colour = Color4.Aquamarine,
-                Size = new Vector2(10, 10),
-                RelativeSizeAxes = Axes.None,
+                Texture = dynamicBackgroundTexture,
+                Size = new Vector2(1, 1),
+                RelativeSizeAxes = Axes.Both,
                 RelativePositionAxes = Axes.None,
                 Anchor = Anchor.Centre,
                 Origin = Anchor.Centre,
                 Position = new Vector2(-10, 10),
+                FillMode = FillMode.Fill
             });
 
             InternalChildren = new Drawable[]
@@ -112,6 +130,8 @@ namespace RodGame.Game.Gameplay
             };
 
             GameCamera = new(StationaryBackgroundContainer, DynamicBackgroundContainer, GameplayContainer);
+
+            GameCamera.MoveCamTo(new Vector2(100, 100), 1000, Easing.InBack);
         }
 
         protected override void Update()

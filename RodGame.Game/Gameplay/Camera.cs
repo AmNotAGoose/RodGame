@@ -18,12 +18,10 @@ namespace RodGame.Game.Gameplay
         private Container dynamicBackgroundContainer = _dynamicBackgroundContainer;
         private Container gameplayContainer = _gameplayContainer;
 
-        public void MoveCamTo(Vector2 position, int timeMs, Easing easing)
+        public void MoveCamTo(Vector2 position, int durationMs, Easing easing)
         {
-            dynamicBackgroundContainer.MoveTo(position, timeMs, easing);
-            gameplayContainer.MoveTo(position, timeMs, easing);
+            dynamicBackgroundContainer.MoveTo(position, durationMs, easing);
+            gameplayContainer.MoveTo(position, durationMs, easing);
         }
-
-
     }
 }

@@ -6,6 +6,7 @@ using osu.Framework.Audio;
 using osu.Framework.Audio.Track;
 using osu.Framework.Graphics;
 using osu.Framework.Graphics.Containers;
+using osu.Framework.Graphics.Rendering;
 using osu.Framework.Graphics.Shapes;
 using osu.Framework.IO.Stores;
 using osu.Framework.Screens;
@@ -27,9 +28,9 @@ namespace RodGame.Game.Gameplay
         }
 
         [BackgroundDependencyLoader]
-        private void load(AudioManager audio)
+        private void load(AudioManager audio, IRenderer renderer)
         {
-            base.Load(audio);
+            base.Load(audio, renderer);
 
             gameHUD = new(GameChart);
 
