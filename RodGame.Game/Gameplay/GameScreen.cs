@@ -81,6 +81,8 @@ namespace RodGame.Game.Gameplay
                 new Sprite
                 {
                     RelativeSizeAxes = Axes.Both,
+                    Anchor = Anchor.Centre,
+                    Origin = Anchor.Centre,
                     Texture = stationaryBackgroundTexture,
                     FillMode = FillMode.Fill,
                 }
@@ -131,7 +133,7 @@ namespace RodGame.Game.Gameplay
 
             GameCamera = new(StationaryBackgroundContainer, DynamicBackgroundContainer, GameplayContainer);
 
-            GameCamera.MoveCamTo(new Vector2(100, 100), 1000, Easing.InBack);
+            GameCamera.MoveCamTo(new Vector2(-100, -100), 3000, Easing.InExpo);
         }
 
         protected override void Update()

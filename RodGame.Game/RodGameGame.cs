@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using osu.Framework.Allocation;
 using osu.Framework.Graphics;
 using osu.Framework.Graphics.UserInterface;
@@ -17,6 +18,7 @@ namespace RodGame.Game
         [BackgroundDependencyLoader]
         private void load()
         {
+            Resources.AddStore(new StorageBackedResourceStore(Host.Storage));
             Resources.AddStore(new DllResourceStore(@"RodGame.Resources.dll"));
             
             mapStore = new(Resources);

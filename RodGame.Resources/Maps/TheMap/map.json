@@ -8,7 +8,7 @@
             "Id": 1,
             "StartPosition": [ 0, 0 ],
             "StartTime": 0.0,
-            "StartRotationSpeed": 0.05,
+            "StartRotationSpeed": 0.1,
             "StartRotation": 0,
             "Events": [],
             "NoteModels": [
