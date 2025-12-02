@@ -59,9 +59,11 @@ namespace RodGame.Game.Gameplay
             if (Song.IsRunning)
             {
                 Song.Stop();
+                IsSeeking = true;
             } else
             {
                 Song.Start();
+                IsSeeking = false;
             }
         }
     }

@@ -76,6 +76,8 @@ namespace RodGame.Game.Gameplay
                     Model = rodModel,
                 };
 
+                rodDrawable.Initialize();
+
                 foreach (var noteModel in rodModel.NoteModels)
                 {
                     var noteDrawable = new Note

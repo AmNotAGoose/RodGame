@@ -27,12 +27,8 @@ namespace RodGame.Game.Gameplay.GameObjects
         private List<Note> notes = new();
 
         [BackgroundDependencyLoader]
-        private void load(IRenderer renderer)
+        private void load(IRenderer renderer) // NOTE: WARNING THIS HAPPENS AFTER A LOT OF STUFF THATS PROBABLY WHY THINGS ARE DEFAULT VALUE/  BROKENB
         {
-            currentPosition = Model.StartPosition;
-            currentRotationSpeed = Model.StartRotationSpeed;
-            Position = currentPosition;
-
             Texture = renderer.WhitePixel;
             RelativeSizeAxes = Axes.None;
             RelativePositionAxes = Axes.None;
@@ -40,6 +36,14 @@ namespace RodGame.Game.Gameplay.GameObjects
             Anchor = Anchor.Centre;
             Size = new Vector2(10000, 10);
             Colour = Color4.Black;
+        }
+
+        public void Initialize()
+        {
+            currentPosition = Model.StartPosition;
+            currentRotationSpeed = Model.StartRotationSpeed;
+
+            Position = currentPosition;
         }
 
         public void AddNote(Note note)
@@ -68,7 +72,13 @@ namespace RodGame.Game.Gameplay.GameObjects
 
         public double GetRotationAtTime(double timeMs)
         {
-            return Model.StartRotation + (float)timeMs * (float)currentRotationSpeed;
+            return Model.StartRotation + (float)timeMs * (float)GetRotationSpeedAtTime(timeMs);
+        }
+
+        public double GetRotationSpeedAtTime(double timeMs)
+        {
+            // eventually this will have adittional logic when theres actually different note types which impact the rod
+            return currentRotationSpeed;
         }
     }
  }

@@ -38,7 +38,6 @@ namespace RodGame.Game.Gameplay.GameObjects
         public void SetParentRod(Rod rod)
         {
             parentRod = rod;
-            Console.WriteLine("asdf");
             Position = parentRod.GetRodPositionAsWorldSpaceAtTime(Model.StartTime, Model.StartPosition.X);
         }
     }
